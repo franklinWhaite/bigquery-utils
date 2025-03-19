@@ -38,6 +38,7 @@ with job_per_min as (
 SELECT 
   job_per_min.*,
   res.autoscale.max_slots autoscale_max_slots,
+  res.autoscale.current_slots current_autoscale_active_slots,
   res.slots_assigned baseline_slots,
   res.autoscale.max_slots + res.slots_assigned total_available_slots
 FROM 
