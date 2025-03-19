@@ -29,6 +29,7 @@
 SELECT
   project_id,
   job_id,
+  query_info.query_hashes.normalized_literals,
   reservation_id,
   EXTRACT(DATE FROM creation_time) AS creation_date,
   creation_time,
