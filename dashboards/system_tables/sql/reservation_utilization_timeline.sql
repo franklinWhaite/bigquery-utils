@@ -26,7 +26,7 @@ with job_per_min as (
     SUM(period_slot_ms) / (1000*60) period_job_slot,
     SUM(total_bytes_processed) period_job_bytes
   FROM 
-    `region-US`.INFORMATION_SCHEMA.JOBS_TIMELINE_BY_ORGANIZATION
+    `region-{region_name}`.INFORMATION_SCHEMA.JOBS_TIMELINE_BY_ORGANIZATION
   WHERE
     job_creation_time	>= CURRENT_TIMESTAMP() - INTERVAL 100 DAY
     AND (statement_type != "SCRIPT" OR statement_type IS NULL)
@@ -48,6 +48,3 @@ LEFT JOIN
     ON
       job_per_min.reservation_id = res.reservation_id
       AND job_per_min.period_start_min = res.period_start
-WHERE 
-  job_per_min.reservation_id = 'zr-prod-data-warehouse:US.whaite'
-ORDER BY period_start_min desc
